@@ -1,0 +1,88 @@
+﻿@import "tailwindcss";
+
+/* Class-based dark mode: toggling .dark on <html> */
+@custom-variant dark (&:is(.dark *));
+
+/* Quera font — add your local Quera file here later (via next/font/local
+   or a @font-face block). Until then we fall back to a clean system stack. */
+@theme {
+  --font-sans: "Quera", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+:root {
+  /* Light theme — warm editorial paper, red as punctuation */
+  --background: #faf7f1;
+  --foreground: #1c1a17;
+  --muted: #6f6a61;
+  --accent: #d0302a;
+  --accent-soft: rgba(208, 48, 42, 0.1);
+  --border: rgba(28, 26, 23, 0.12);
+}
+
+.dark {
+  /* Dark theme — deep blue night, warm yellow text */
+  --background: #0c1122;
+  --foreground: #f2e8b3;
+  --muted: #a6a7bd;
+  --accent: #ecd685;
+  --accent-soft: rgba(236, 214, 133, 0.12);
+  --border: rgba(242, 232, 179, 0.14);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-border-subtle: var(--border);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--background);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
